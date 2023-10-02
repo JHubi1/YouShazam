@@ -20,7 +20,7 @@ except: pass
 print("<<YouShazam>>", end="")
 
 try:
-    _ = requests.head("http://google.com", timeout=2)
+    requests.head("http://google.com", timeout=2)
 except requests.ConnectionError:
     print("\nFor this tool to work, you need a valid internet connection!")
     sys.exit()
