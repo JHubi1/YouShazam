@@ -43,7 +43,7 @@ with open(file, "r") as f:
         x = 0
         while True:
             x += 1
-            url = VideosSearch(f"music '{i[1]}' by {i[2]} (lyrics)", 1).result()["result"][0]["link"].strip()
+            url = VideosSearch(f"music '{i[1]}' by {i[2]} (official lyrics)", 1).result()["result"][0]["link"].strip()
 
             if len(i[0]) == 1: num = "00" + str(i[0])
             elif len(i[0]) == 2: num = "0" + str(i[0])
@@ -53,7 +53,7 @@ with open(file, "r") as f:
             title = title.replace(" ", "_")
             title = re.sub(r"\(.*?\) {0,1}", "", title)
             title = re.sub(r"\[.*?\] {0,1}", "", title)
-            title = title.strip()
+            title = title.strip().removeprefix("_").removesuffix("_")
         
             try:
                 yt = pytube.YouTube(url)
