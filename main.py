@@ -6,6 +6,8 @@ import os
 import re
 import requests
 from unidecode import unidecode
+import music_tag
+import moviepy.editor
 
 if not __name__ == "__main__":
     def print(*args, **kwargs): pass
@@ -55,20 +57,30 @@ with open(file, "r") as f:
             title = re.sub(r"\[.*?\] {0,1}", "", title)
             title = title.strip().removeprefix("_").removesuffix("_")
         
-            try:
+            if True:
+            # try:
                 yt = pytube.YouTube(url)
                 yt = yt.streams.filter(only_audio=True).first()
-                yt.download(os.path.abspath("output"), f"{num}-{title}.mp3")
+                yt.download(os.path.abspath("output"), f"{num}-{title}.mp4")
+                video = moviepy.editor.AudioFileClip(os.path.join("./output",  f"{num}-{title}.mp4"))
+                video.write_audiofile(os.path.join("./output",  f"{num}-{title}.mp3"), verbose=False, logger=None)
+                video.close()
+                os.remove(os.path.join("./output",  f"{num}-{title}.mp4"))
+                audio = music_tag.load_file(os.path.join("./output",  f"{num}-{title}.mp3"))
+                audio.append_tag("tracktitle", i[1])
+                audio.append_tag("artist", i[2])
+                audio.append_tag("album", "YouShazam")
+                audio.save()
                 print(" - success", end="")
                 break
-            except:
-                if x > 10:
-                    failed += 1
-                    failed_list.append([i[0], i[1], i[2], url.replace('https://www.youtube.com/watch?v=', '')])
-                    with open(os.path.abspath(f"output/{num}-{title}.txt"), "w") as f:
-                        f.write(f"AgeRestrictedError: {url.replace('https://www.youtube.com/watch?v=', '')} is age restricted, and can't be accessed without logging in.")
-                    print(" - failed", end="")
-                    break
+            # except:
+            #     if x > 10:
+            #         failed += 1
+            #         failed_list.append([i[0], i[1], i[2], url.replace('https://www.youtube.com/watch?v=', '')])
+            #         with open(os.path.abspath(f"output/{num}-{title}.txt"), "w") as f:
+            #             f.write(f"AgeRestrictedError: {url.replace('https://www.youtube.com/watch?v=', '')} is age restricted, and can't be accessed without logging in.")
+            #         print(" - failed", end="")
+            #         break
 
 print("\n<<Report>>")
 try: os.remove("report.txt")
