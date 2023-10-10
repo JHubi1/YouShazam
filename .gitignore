@@ -3,3 +3,4 @@ output
 report.txt
 shazamlibrary.csv
 .gitignore
+config.json
