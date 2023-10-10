@@ -2,7 +2,7 @@
 YouShazam is a simple-to-use tool that can download your whole Shazam library from YouTube to your local PC. I searched for a tool to do that for a while now, and after no success, I decided to code my own. It's not perfect, though; for example, the MP3s are not real MP3s. If you add any tags to them, they will corrupt.
 
 ## Installation
-To start using this tool, simply download the ZIP file of this repository and place it in a new folder on your disk. That's all you need. Now continue in the usage chapter.
+To start using this tool, simply download the ZIP file from the latest release and place the content in a new folder on your disk. That's all you need. Now continue in the usage chapter.
 
 ## Usage
 - To start, visit your Shazam library by simply clicking [here](https://www.shazam.com/de/myshazam), then click on `Download CSV-File` to get your file. **If it's not named `shazamlibrary.csv` rename it to that!**
